@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <body>
+      <script>
+/* 1: Napisać program który pobierze od użytkownika dwie liczby i powie która jest większa (pierwsza czy druga)*/
+const liczba1 = parseInt(prompt("Podaj liczbę 1"));
+const liczba2 = parseInt(prompt("Podaj liczbę 2"));
+
+if (liczba1 > liczba2) {
+  console.log("Liczba 1 jest większa od liczby 2.");
+} else {
+    console.log("Liczba 2 jest większa od liczby 1.");
+}
+
+/* 2: Napisać program który pobierze od użytkownika promień koła i wypisze do konsoli jego pole oraz obwód.
+
+const promien = parseInt(prompt("Podaj promień koła"));
+
+if (promien < 0){
+    console.log("Promień nie może byc liczbą ujemną, popraw dane.");
+}else{
+function pole(){
+    let p = 3.14 * promien * promien;
+    return p;
+}
+console.log("Pole koła o promieniu "+ promien +" wynosi: " + pole());
+function obwod(){
+    let o = 2 * 3.14 * promien;
+    return o;
+}
+console.log("Obwód koła o promieniu "+ promien +" wynosi: " + obwod());}*/
+
+/* 3: Rok jest rokiem przestępnym wtedy, gdy jest podzielny przez 4 ale nie przez 100, 
+ALBO kiedy jest podzielny przez 400. Napisać program który 
+pobierze rok i powie czy jest rokiem przestępnym.
+
+const rok = parseInt(prompt("Podaj rok"));
+if (rok <0 ){
+    console.log("Rok nie może mieć wartości mniejszej od zera. Popraw dane.")
+} 
+else if (rok % 4 == 0 && rok % 100 !== 0){
+    console.log("Podany przez ciebie rok " + rok + " jest rokiem przestępnym.");
+} else {
+    console.log("Podany przez ciebie rok " + rok + " nie jest rokiem przestępnym.")
+}*/
+
+      </script>
+    </body>
+  </head>
+</html>

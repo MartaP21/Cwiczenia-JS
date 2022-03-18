@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <body>
+      <script>
+/* Program który symuluje rakietę kosmiczną:
+1. Na samym początku napisać kod który pobierze od użytkownika ilość paliwa do rakiety w litrach:
+- musi to być liczba, nie może być mniejsza niż 5000 ani większa niż 40000. 
+Program powinien pytać tak długo aż użytkownik wprowadzi dobrą wartość.*/
+
+let paliwo = parseInt(prompt("Podaj ilość paliwa do rakiety: w litrach."));
+//if (paliwo = txt){console.log("Ilość paliwa musi być liczbą nie tekstem! Popraw dane.")}
+function pobierzLiczbe() {
+  return parseInt(prompt("Podaj ilość paliwa do rakiety: w litrach min 5000 max 40000."));
+}
+while (paliwo < 5000 || paliwo > 40000){
+    console.log("Podałeś niewłaściwą ilość paliwa. Wartość ta musi wynosić pomiędzy 5000-40000 litrów!"); 
+    paliwo = pobierzLiczbe();
+}
+console.log("Podana ilość paliwa: " + paliwo +" litrów.");
+
+/* 2. Następnie program powinien spytać o ilość astronautów. 
+Musi to być liczba, nie może być mniejsza niż 1 ani większa niż 8. 
+Ponownie powinien pytać do skutku.*/
+let astronauci = parseInt(prompt("Podaj ilość astronautów w rakiecie."));
+function pobierzAstronautow() {
+  return parseInt(prompt("Podaj ilość astronautów: min 1 max 8."));
+}
+while (astronauci < 1 || astronauci > 8){
+    console.log("Ilośc astronautów nie może być mniejsza od 1 i większa od 8!"); 
+    astronauci = pobierzAstronautow();
+}
+console.log("Podana ilość astronautów: " + astronauci);
+
+/* 3. Finalnie program powinien zasymulować lot rakiety. 
+Napisać kod który używając pętli będzie symulował każdą godzinę lotu:
+- w każdej godzinie ilość pozostałego paliwa powinna się zmniejszać o 100 na każdego astronautę na pokładzie. 
+Jednocześnie w każdej godzinie zwiększamy przeleciany dystans o 500km. 
+Lot powinien trwać tak długo wystarczy paliwa. Na samym końcu powinien wyświetlić, jak wysoko w kilometrach doleciała rakieta.*/
+let dlugoscLotu = 0;
+let dystans = 0;
+let lot;
+while (paliwo > 0){
+ paliwo = paliwo - (100 * astronauci);
+ dlugoscLotu = dlugoscLotu +1;
+}
+console.log("Ilość bęzyny pozwoliła na " + dlugoscLotu + " godzin lotu.");
+dystans = dlugoscLotu * 500;
+console.log("Podczas " + dlugoscLotu + " godzin lotu, z " + astronauci + " astronautami na pokładzie, rakieta przeleciała dystans " + dystans + " km.")
+
+      </script>
+    </body>
+  </head>
+</html>

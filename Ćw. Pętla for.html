@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <body>
+      <script>
+/*//Wypisać na konsolę liczby od 1 do 100.
+let liczba = 1;
+let i = 0;
+for (liczba=1; i<100; i++){
+    console.log(liczba);
+    liczba = liczba + 1;
+}
+//Wypisać na konsolę liczby od 1 do 100, ale tylko te parzyste.
+let l2 = 1;
+i = 0;
+for (l2=1; i<100; i++){
+    if (l2 % 2 == 0){
+        console.log(l2);
+        l2 = l2 + 1;
+    } else {
+        l2 = l2 +1;
+    }
+}
+//Wypisać na konsolę liczby od 100 do -50, ale tylko te nieparzyste.
+let l3;
+i=0;
+for (l3 = -50; i<150; i++){
+    if (l3 % 2 !== 0){
+        console.log(l3);
+        l3 = l3 +1;
+    } else {
+        l3 = l3 +1; 
+    }
+}*/
+//Stworzyć tablicę paru liczb (np. [5, 7, 8, 11, 76, 100]), po czym
+let tablica = [5, 7, 8, 11, 76, 100];
+//Wypisać na konsolę co drugi element
+let i = 0;
+for (i=0; i< tablica.length; i++){
+    if (i % 2 !== 0){
+        console.log(tablica[i]);
+        i = i +1;
+    }
+}
+//Wypisać na konsolę liczby w odwrotnej kolejności
+function sortowanie (a, b) {
+  return b - a;
+}
+tablica.sort(sortowanie);
+console.log(tablica);
+//Dodać do nowej tablicy o nazwie “parzyste” liczby parzyste, a do “nieparzyste” liczby nieparzyste. Wypisać na koniec obie na konsolę.*/
+ let tab = [5, 7, 8, 11, 76, 100];
+ let parzyste = [];
+ for (i=0; i<tab.length; i++){
+     if (tab[i] % 2 == 0){
+        parzyste.push(tab[i]);
+     } 
+ }
+ console.log(parzyste);
+ let nieparzyste = [];
+ for (i=0; i<tab.length; i++){
+     if (tab[i] % 2 !== 0){
+         nieparzyste.push(tab[i]);
+     }
+ }
+ console.log(nieparzyste);
+        </script>
+    </body>
+  </head>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <meta charset="UTF-8" />
+    <title>Projekt Końcowy Marta Paszkowska</title>
+     <style>
+        body{
+          background-color: rgba(71, 183, 248, 0.774);
+        }
+        h1{
+          font-size: 40px;
+          text-align: center;
+        }
+        .d0{
+          display: flex;  
+          justify-content: center;
+        }
+        .d1, .d2, .d3{
+          margin: 20px;
+          padding: 20px;
+          border: 1px solid blue;
+        }   
+        .s1{
+          font-size: 20px;
+        }
+        li:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
+     </style>
+  </head> Zmiana do zakomitowania
+  <body>
+    <h1>Kalkulator BMI</h1>
+    <div class="d0">
+      <div class="d1">
+        <h2>Podaj dane:</h2>
+        <p>Waga (kg): <input type="number" id="waga" min="40" max="200"></p>
+        <p>Wzrost (cm): <input type="number" id="wzrost" min="120" max="240"></p>
+        <p><input type="submit" id="licz" value="Oblicz BMI"></p>
+      </div>
+      <div class="d2">
+        <h2>Twoje BMI:</h2>
+        <p>Waga: <output id="waga2"> </output></p>
+        <p>Wzrost: <output id="wzrost2"> </output></p>
+        <p class="s1">BMI: <output id="wynik"> </output></p>
+        <p><output id="comment1"> </output><br><output id="comment2"> </output></p>
+      </div>
+      <div class="d3">
+        <h2>Historia pomiarów:</h2>
+        <p><ul id="pomiar"></ul></p>
+        <p><output id="comment3"> </output></p>
+        <p><input type="submit" value="Czyść historię" onclick="Reset()"></p>
+      </div>
+    </div>
+    <div>
+      <p><center><img src=https://www.jolie.de/sites/default/files/styles/image870w/public/images/2018/02/02/bmi-body-mass-index.webp?itok=Bw3phlIz alt="Wykres BMI"></center></p>
+    </div>
+  </body>
+  <script>
+    
+    let zestawienie=[];
+    let licznik = 0;
+    
+    //funkcja licząca BMI i wykonująca wszystkie założone funkcjonalności po kliknięciu przycisku #licz
+    function BMI(){
+      let wagaElement = document.getElementById("waga");
+      let wzrostElement = document.getElementById("wzrost");
+      let waga = parseInt(wagaElement.value);
+      let wzrost = parseInt(wzrostElement.value);
+      let bmi;
+
+      document.getElementById("comment1").innerHTML = "";
+		  document.getElementById("comment2").innerHTML = "";
+      //sprawdzamy poprawność wprowadzonych danych
+      let paramsOK = true;
+      if (wagaElement.value == ""){
+        document.getElementById("comment1").innerHTML = "Nie podałeś wagi. Podaj wagę z zakresu od 40 kg do 200 kg.";
+        paramsOK = false;
+      } else if (waga<40 || waga>200){
+        document.getElementById("comment1").innerHTML = "Podałeś błędną wagę. Zakres od 40 kg do 200 kg.";
+        paramsOK = false;
+      }
+       if (wzrostElement.value == ""){
+        document.getElementById("comment2").innerHTML = "Nie podałeś wzrostu. Podaj wzrost w zakresie od 120 cm do 240 cm.";
+        paramsOK = false;
+      } else if (wzrost<120 || wzrost >240){
+        document.getElementById("comment2").innerHTML = "Podałeś błędny wzrost. Zakres od 120 cm do 240 cm.";
+        paramsOK = false;
+      }
+      if (!paramsOK) return;
+      //jeśli dane są poprawne kalkulator liczy BMI
+      bmi= waga/((wzrost/100)**2);
+      let wynik = (parseFloat(bmi)).toFixed(2);
+      //wyświetlamy wynik, wagę i wzrost w środkowym module
+      document.getElementById("wynik").innerHTML = wynik; 
+      document.getElementById("waga2").innerHTML = waga;
+      document.getElementById("wzrost2").innerHTML = wzrost; 
+      //wrzucamy dane do tablicy TODO:Pobawić się obiektami tu, w pętlach i w historii          
+      zestawienie.push([waga, wzrost, wynik,]);
+      //zapisujemy dane w historii
+      localStorage.setItem("zestawienie", JSON.stringify(zestawienie)); 
+      console.log(zestawienie); //kontrolne sprawdzenie tablicy
+      //pętla sprawdzająca zmianę BMI
+      for(let i=0; i<zestawienie.length-1; i++){
+        if(zestawienie[i][2]<zestawienie[i+1][2]){
+          document.getElementById("comment1").innerHTML = "Przytyłeś!!! Twoje BMI wzrosło!";
+        } else if (zestawienie[i][2]>zestawienie[i+1][2]){
+          document.getElementById("comment1").innerHTML = "Brawo Schudłeś! Twoje BMI spadło!";
+        } else {
+          document.getElementById("comment1").innerHTML = "Twoje BMI jest bez zmian!";
+        }
+      }
+      //pętla wylicza średnią z zebranych wartości BMI
+      let sumaWartosci = parseFloat(0);
+      for(let i=0; i<zestawienie.length; i++) {
+        let wartoscBmi = parseFloat(zestawienie[i][2]);
+        sumaWartosci = sumaWartosci + wartoscBmi;
+      }
+      let iloscWartosci = zestawienie.length;
+      let srednia = parseFloat(sumaWartosci / iloscWartosci).toFixed(2);
+      document.querySelector("#comment3").innerHTML = "Średnia wartość BMI: " + srednia;
+      //wywołujemy funkcję dodającą do historii kolejny wpis pomiaru
+      dodajWpisPomiaru();
+    }
+    //funkcja dodająca do historii kolejny wpis pomiaru
+    function dodajWpisPomiaru(){ 
+      let idx = licznik;
+      licznik = licznik + 1;
+      let data = new Date().toLocaleDateString()+" "+new Date().toLocaleTimeString();
+      
+      let nowyWpisPomiaru = document.createElement("li");
+      nowyWpisPomiaru.innerHTML = "Pomiar # " + licznik + " " + data;
+        
+      let wynikElement = document.querySelector("#pomiar");
+      wynikElement.appendChild(nowyWpisPomiaru);
+      //po kliknięciu w przycisk wywołuje historię danego indexu
+      nowyWpisPomiaru.addEventListener("click", function(){
+        document.querySelector("#wynik").innerHTML=zestawienie[idx][2];
+        document.querySelector("#waga2").innerHTML=zestawienie[idx][0];
+        document.querySelector("#wzrost2").innerHTML=zestawienie[idx][1];
+      });
+    }
+    //funkcja resetująca historię zapisów
+    function Reset(){ 
+      licznik = 0;
+      document.querySelector("#wynik").innerHTML = " ";
+      document.querySelector("#waga2").innerHTML = " ";
+      document.querySelector("#wzrost2").innerHTML = " "; 
+      document.querySelector("#pomiar").innerHTML = " ";
+      document.querySelector("#comment1").innerHTML = " "; 
+      document.querySelector("#comment2").innerHTML = " ";
+      document.querySelector("#comment3").innerHTML = " ";
+      zestawienie=[];
+    }  
+    //wywołujemy funkcję główną po kliknięciu w przycick #licz
+    let liczBmi = document.querySelector("#licz");
+    liczBmi.addEventListener("click", BMI);
+
+  </script>
+</html>
+
